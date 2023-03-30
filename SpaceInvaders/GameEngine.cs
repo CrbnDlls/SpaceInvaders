@@ -100,30 +100,35 @@ namespace SpaceInvaders
         {
             for (int i = 0; i < frame.PlayerMissiles.Count; i++)
             {
-                Missile missile = frame.PlayerMissiles[i];
-                if (missile.Top == gameSettings.StartCoordinate)
+                Point playerMissile = frame.PlayerMissiles[i];
+                if (playerMissile.Top == gameSettings.StartCoordinate)
                 {
                     frame.PlayerMissiles.RemoveAt(i);
                 }
                 else
                 {
-                    missile.Top--;
-                    for (int j = 0; j < frame.Invaders.Count; j++)
+                    playerMissile.Top--;
+                    
+                    if (ObjectHitByMissile(playerMissile, frame.InvaderMissiles, out int invaderRocketIndex))
                     {
-                        if (missile.Compare(frame.Invaders[j]))
-                        {
-                            frame.Invaders.RemoveAt(j);
-                            frame.PlayerMissiles.RemoveAt(i);
-                        }
+                        frame.InvaderMissiles.RemoveAt(invaderRocketIndex);
+                        frame.PlayerMissiles.RemoveAt(i);
                     }
-
-                    if (frame.Invaders.Count == 0)
+                    else if (ObjectHitByMissile(playerMissile, frame.Invaders, out int invaderIndex))
                     {
-                        IsGameOver = true;
+                        frame.Invaders.RemoveAt(invaderIndex);
+                        frame.PlayerMissiles.RemoveAt(i);
                     }
                 }
             }
+
+            if (frame.Invaders.Count == 0)
+            {
+                IsGameOver = true;
+            }
         }
+
+        
 
         public void InvadersMove()
         {
@@ -137,6 +142,20 @@ namespace SpaceInvaders
                     break;
                 }
             }
+        }
+
+        private bool ObjectHitByMissile(Point missile, List<Point> list, out int objectIndex)
+        {
+            objectIndex = -1;
+            for (int j = 0; j < list.Count; j++)
+            {
+                if (missile.Compare(list[j]))
+                {
+                    objectIndex = j;
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

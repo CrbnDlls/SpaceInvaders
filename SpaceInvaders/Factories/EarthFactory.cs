@@ -7,25 +7,28 @@ using System.Threading.Tasks;
 
 namespace SpaceInvaders.Factories
 {
-    internal class EarthFactory
+    internal class EarthFactory : PointFactory
     {
-        readonly GameSettings gameSettings;
-        public EarthFactory(GameSettings gameSettings)
+        public EarthFactory(GameSettings gameSettings) : base(gameSettings)
         {
-            this.gameSettings = gameSettings;
         }
 
-        public List<Earth> GetEarths()
+        public List<Point> GetEarths()
         {
-            List<Earth> earths = new List<Earth>();
+            List<Point> earths = new List<Point>();
             for (int j = 0; j < gameSettings.EarthCount; j++)
             {
-                earths.Add(new Earth(gameSettings.EarthStartPositionTop,
+                earths.Add(GetPoint(gameSettings.EarthStartPositionTop,
                                              gameSettings.EarthStartPositionLeft + j,
                                              gameSettings.Earth));
             }
             
             return earths;
+        }
+
+        public override Point GetPoint(int top, int left, char symbol)
+        {
+            return new Earth(top, left, symbol);
         }
     }
 }

@@ -55,5 +55,7 @@ namespace SpaceInvaders
 
         public int MissileSpeed { get; } = 3;
 
+        public int InvaderShotSpeed { get; } = 3;
+
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SpaceInvaders.Objects
 {
-    internal class Point
+    abstract class Point
     {
         private int top;
         private int left;
@@ -29,18 +29,13 @@ namespace SpaceInvaders.Objects
             get => symbol;
         }
 
-        public Point(int top, int left, char symbol)
+        protected Point(int top, int left, char symbol)
         {
             this.top = top;
             this.left = left;
             this.symbol = symbol;
         }
-        public void Draw()
-        {
-            Console.SetCursorPosition(left, top);
-            Console.Write(symbol);
-        }
-
+        
         public bool Compare(Point other)
         {
             return left == other.left && top == other.top;

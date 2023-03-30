@@ -9,17 +9,21 @@ namespace SpaceInvaders.Objects
 {
     internal class Frame
     {
-        private readonly List<InvaderShip> invaders;
-        private readonly List<Earth> earths;
-        private readonly List<Missile> playerMissiles;
-        private readonly PlayerShip playerShip;
+        private readonly List<Point> invaders;
+        private readonly List<Point> earths;
+        private readonly List<Point> playerMissiles;
+        private readonly Point playerShip;
+        private readonly List<Point> invaderMissiles;
+
 
         private static Frame frame;
 
-        public List<InvaderShip> Invaders { get => invaders; }
-        public List<Earth> Earths { get => earths; }
-        public List<Missile> PlayerMissiles { get => playerMissiles; }
-        public PlayerShip PlayerShip { get => playerShip; }
+        public List<Point> Invaders { get => invaders; }
+        public List<Point> Earths { get => earths; }
+        public List<Point> PlayerMissiles { get => playerMissiles; }
+        public Point PlayerShip { get => playerShip; }
+
+        public List<Point> InvaderMissiles { get => invaderMissiles;  }
 
         private GameSettings gameSettings;
 
@@ -37,7 +41,9 @@ namespace SpaceInvaders.Objects
                                         gameSettings.PlayerShipStartPositionLeft,
                                         gameSettings.PlayerShip);
 
-            playerMissiles = new List<Missile>();
+            playerMissiles = new List<Point>();
+
+            invaderMissiles = new List<Point>();
         }
 
         public static Frame GetFrame(GameSettings gameSettings)

@@ -76,7 +76,7 @@ namespace SpaceInvaders
             Render();
         }
 
-        private void AddListToMatrix<T>(List<T> points) where T : Point
+        private void AddListToMatrix(List<Point> points)
         {
             foreach (Point point in points)
             {
