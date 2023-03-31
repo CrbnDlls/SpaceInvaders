@@ -59,6 +59,7 @@ namespace SpaceInvaders
                 if (missileCounter == gameSettings.MissileSpeed)
                 {
                     MissilesMove();
+                    InvaderShipShot();
                     missileCounter = -1;
                 }
 
@@ -72,6 +73,15 @@ namespace SpaceInvaders
         public void QuitGame()
         {
             IsGameOver = true;
+        }
+
+        public void InvaderShipShot()
+        {
+            Random random = new Random();
+            int invaderIndex = random.Next(0, frame.Invaders.Count - 1);
+            Point invader = frame.Invaders[invaderIndex];
+
+            frame.InvaderMissiles.Add(new Missile(invader.Top + 1, invader.Left, gameSettings.InvaderMissile));
         }
 
         public void PlayerShipShot()
@@ -109,12 +119,12 @@ namespace SpaceInvaders
                 {
                     playerMissile.Top--;
                     
-                    if (ObjectHitByMissile(playerMissile, frame.InvaderMissiles, out int invaderRocketIndex))
+                    if (ObjectsHitByMissile(playerMissile, frame.InvaderMissiles, out int invaderRocketIndex))
                     {
                         frame.InvaderMissiles.RemoveAt(invaderRocketIndex);
                         frame.PlayerMissiles.RemoveAt(i);
                     }
-                    else if (ObjectHitByMissile(playerMissile, frame.Invaders, out int invaderIndex))
+                    else if (ObjectsHitByMissile(playerMissile, frame.Invaders, out int invaderIndex))
                     {
                         frame.Invaders.RemoveAt(invaderIndex);
                         frame.PlayerMissiles.RemoveAt(i);
@@ -122,7 +132,34 @@ namespace SpaceInvaders
                 }
             }
 
-            if (frame.Invaders.Count == 0)
+            for (int i = 0; i < frame.InvaderMissiles.Count; i++)
+            {
+                Point invaderMissile = frame.InvaderMissiles[i];
+                if (invaderMissile.Top == gameSettings.ConsoleHeight - 1)
+                {
+                    frame.InvaderMissiles.RemoveAt(i);
+                }
+                else
+                {
+                    invaderMissile.Top++;
+                    if (ObjectsHitByMissile(invaderMissile, frame.PlayerMissiles, out int playerRocketIndex))
+                    {
+                        frame.InvaderMissiles.RemoveAt(i);
+                        frame.PlayerMissiles.RemoveAt(playerRocketIndex);
+                    }
+                    else if (ObjectHitByMissile(invaderMissile, frame.PlayerShip))
+                    {
+                        IsGameOver = true;
+                    }
+                    else if (ObjectsHitByMissile(invaderMissile, frame.Earths, out int earthsIndex))
+                    {
+                        frame.Earths.RemoveAt(earthsIndex);
+                        frame.InvaderMissiles.RemoveAt(i);
+                    }
+                }
+            }
+
+            if (frame.Invaders.Count == 0 || frame.Earths.Count <= gameSettings.MinimumEarth)
             {
                 IsGameOver = true;
             }
@@ -144,18 +181,23 @@ namespace SpaceInvaders
             }
         }
 
-        private bool ObjectHitByMissile(Point missile, List<Point> list, out int objectIndex)
+        private bool ObjectsHitByMissile(Point missile, List<Point> list, out int objectIndex)
         {
             objectIndex = -1;
             for (int j = 0; j < list.Count; j++)
             {
-                if (missile.Compare(list[j]))
+                if (ObjectHitByMissile(missile, list[j]))
                 {
                     objectIndex = j;
                     return true;
                 }
             }
             return false;
+        }
+
+        private bool ObjectHitByMissile(Point missile, Point obj)
+        {
+            return missile.Compare(obj);
         }
     }
 }

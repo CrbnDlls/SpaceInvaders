@@ -37,6 +37,8 @@ namespace SpaceInvaders
 
         public int EarthCount { get; } = 80;
 
+        public int MinimumEarth { get; } = 20;
+
         public char Earth { get; } = '\u02A3'; //ʣ
 
         public int PlayerShipStartPositionLeft { get; } = 39;

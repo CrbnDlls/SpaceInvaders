@@ -41,6 +41,7 @@ namespace SpaceInvaders
             AddListToMatrix(frame.Earths);
             AddListToMatrix(frame.PlayerMissiles);
             AddPointToMatrix(frame.PlayerShip);
+            AddListToMatrix(frame.InvaderMissiles);
 
             Render();
         }
