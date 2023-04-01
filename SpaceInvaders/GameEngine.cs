@@ -1,9 +1,4 @@
 ﻿using SpaceInvaders.Objects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpaceInvaders
 {
@@ -59,15 +54,15 @@ namespace SpaceInvaders
 
                 manualResetEvent.WaitOne();
                 Thread.Sleep(gameSettings.GameSpeed);
-                
+
                 frameRender.ClearFrame();
-                
+
                 if (invaderMoveCounter == gameSettings.InvadersSpeed)
                 {
                     InvadersMove();
                     invaderMoveCounter = -1;
                 }
-                
+
                 invaderMoveCounter++;
 
                 if (missileCounter == gameSettings.MissileSpeed)
@@ -82,7 +77,7 @@ namespace SpaceInvaders
             } while (!isGameOver);
 
             frameRender.RenderGameOver();
-            
+
         }
 
         public void EndGame()
@@ -99,14 +94,14 @@ namespace SpaceInvaders
             }
             else
             {
-                isPause = true; 
+                isPause = true;
                 manualResetEvent.Reset();
             }
         }
 
         public void InvaderShipShot()
         {
-           frame.AddInvaderMissile();
+            frame.AddInvaderMissile();
         }
 
         public void PlayerShipShot()
@@ -143,7 +138,7 @@ namespace SpaceInvaders
                 else
                 {
                     playerMissile.Top--;
-                    
+
                     if (ObjectsHitByMissile(playerMissile, frame.InvaderMissiles, out int invaderRocketIndex))
                     {
                         frame.InvaderMissiles.RemoveAt(invaderRocketIndex);
@@ -190,7 +185,7 @@ namespace SpaceInvaders
             }
         }
 
-        
+
 
         public void InvadersMove()
         {

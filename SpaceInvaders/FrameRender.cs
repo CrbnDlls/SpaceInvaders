@@ -1,15 +1,11 @@
 ﻿using SpaceInvaders.Objects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace SpaceInvaders
 {
     internal class FrameRender
     {
-        GameSettings gameSettings;
+        readonly GameSettings gameSettings;
 
         readonly char[,] screenMatrix;
 
@@ -31,7 +27,7 @@ namespace SpaceInvaders
             screenMatrix[10, 52] = 'e';
             screenMatrix[10, 53] = 'r';
             screenMatrix[10, 54] = '!';
-            
+
             Render();
         }
 

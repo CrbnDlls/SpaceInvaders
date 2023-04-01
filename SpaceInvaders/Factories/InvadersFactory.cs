@@ -1,18 +1,13 @@
 ﻿using SpaceInvaders.Objects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpaceInvaders.Factories
 {
     internal class InvadersFactory : PointFactory
     {
-        
-        public InvadersFactory(GameSettings gameSettings) :base(gameSettings)
+
+        public InvadersFactory(GameSettings gameSettings) : base(gameSettings)
         {
-            
+
         }
 
         public List<Point> GetInvaders()

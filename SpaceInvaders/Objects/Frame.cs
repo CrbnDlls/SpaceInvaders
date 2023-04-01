@@ -1,9 +1,4 @@
 ﻿using SpaceInvaders.Factories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpaceInvaders.Objects
 {
@@ -16,17 +11,17 @@ namespace SpaceInvaders.Objects
         private List<Point> invaderMissiles;
 
 
-        private static Frame frame;
-        public int PlayerMissileQuantity { get; private set; } = 0;
-        public int InvaderMissileQuantity { get; private set; } = 0;
+        private static Frame? frame;
+        public int PlayerMissileQuantity { get; private set; }
+        public int InvaderMissileQuantity { get; private set; } 
         public List<Point> Invaders { get => invaders; }
         public List<Point> Earths { get => earths; }
         public List<Point> PlayerMissiles { get => playerMissiles; }
         public Point PlayerShip { get => playerShip; }
 
-        public List<Point> InvaderMissiles { get => invaderMissiles;  }
+        public List<Point> InvaderMissiles { get => invaderMissiles; }
 
-        private GameSettings gameSettings;
+        private readonly GameSettings gameSettings;
 
         private Frame(GameSettings gameSettings)
         {
@@ -50,6 +45,10 @@ namespace SpaceInvaders.Objects
             playerMissiles = new List<Point>();
 
             invaderMissiles = new List<Point>();
+
+            PlayerMissileQuantity = 0;
+
+            InvaderMissileQuantity = 0;
         }
 
         public static Frame GetFrame(GameSettings gameSettings)
@@ -72,13 +71,13 @@ namespace SpaceInvaders.Objects
         public void AddInvaderMissile()
         {
             Random random = new Random();
-            
+
             int invaderIndex = random.Next(0, frame.Invaders.Count - 1);
-            
+
             Point invader = frame.Invaders[invaderIndex];
-            
+
             MissileFactory missileFactory = new MissileFactory(gameSettings);
-            
+
             invaderMissiles.Add(missileFactory.GetInvaderMissile(invader.Top + 1, invader.Left));
 
             InvaderMissileQuantity++;

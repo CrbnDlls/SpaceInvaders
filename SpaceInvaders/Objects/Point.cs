@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SpaceInvaders.Objects
+﻿namespace SpaceInvaders.Objects
 {
     abstract class Point
     {
@@ -12,15 +6,15 @@ namespace SpaceInvaders.Objects
         private int left;
         private char symbol;
 
-        public int Top 
-        { 
+        public int Top
+        {
             get => top;
             set => top = value;
         }
 
-        public int Left 
-        { 
-            get => left; 
+        public int Left
+        {
+            get => left;
             set => left = value;
         }
 
@@ -35,7 +29,7 @@ namespace SpaceInvaders.Objects
             this.left = left;
             this.symbol = symbol;
         }
-        
+
         public bool Compare(Point other)
         {
             return left == other.left && top == other.top;

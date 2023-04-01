@@ -1,6 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
-using SpaceInvaders;
-using SpaceInvaders.Objects;
+﻿using SpaceInvaders;
 
 GameEngine? gameEngine;
 UIController controller;
@@ -13,14 +11,6 @@ CancellationTokenSource tokenSource = new CancellationTokenSource();
 CancellationToken cancellationToken = tokenSource.Token;
 
 Initialize();
-
-
-
-//uiThread.WaitAsync(cancellationToken);
-
-//tokenSource.Cancel();
-
-//Console.ReadKey();
 
 void Initialize()
 {

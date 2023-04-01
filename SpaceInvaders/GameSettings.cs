@@ -1,15 +1,10 @@
-﻿using SpaceInvaders.Objects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
 namespace SpaceInvaders
 {
     internal class GameSettings
     {
-        public GameSettings() 
+        public GameSettings()
         {
             Console.OutputEncoding = Encoding.Unicode;
             Console.CursorVisible = false;
@@ -21,14 +16,14 @@ namespace SpaceInvaders
 
         public int ConsoleHeight { get; } = 20;
 
-        public int InvadersStartPositionLeft {  get; } = 10;
+        public int InvadersStartPositionLeft { get; } = 10;
 
         public int InvadersStartPositionTop { get; } = 1;
 
         public int InvadersCount { get; } = 60;
 
         public int InvadersLines { get; } = 2;
-        
+
         public char InvadersShip { get; } = '\u00A5'; //¥
 
         public int EarthStartPositionLeft { get; } = 0;
@@ -47,7 +42,7 @@ namespace SpaceInvaders
 
         public char PlayerShip { get; } = '\u0466'; //Ѧ
 
-        public char PlayerMissile { get;  } = '\u013C';//ļ
+        public char PlayerMissile { get; } = '\u013C';//ļ
 
         public char InvaderMissile { get; } = '\u01D0';//ǐ
 
