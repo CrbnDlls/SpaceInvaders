@@ -19,11 +19,16 @@ namespace SpaceInvaders
 
         private bool IsGameOver = false;
 
+        private bool IsPause = false;
+
+        private readonly ManualResetEvent manualResetEvent;
+
         private GameEngine(GameSettings gameSettings)
         {
             this.gameSettings = gameSettings;
             frame = Frame.GetFrame(gameSettings);
             frameRender = new FrameRender(gameSettings);
+            manualResetEvent = new ManualResetEvent(true);
         }
 
         public static GameEngine GetGameEngine(GameSettings gameSettings)
@@ -44,8 +49,9 @@ namespace SpaceInvaders
             {
                 frameRender.Render(frame);
 
+                manualResetEvent.WaitOne();
                 Thread.Sleep(gameSettings.GameSpeed);
-
+                
                 frameRender.ClearFrame();
                 
                 if (invaderMoveCounter == gameSettings.InvadersSpeed)
@@ -73,6 +79,20 @@ namespace SpaceInvaders
         public void QuitGame()
         {
             IsGameOver = true;
+        }
+
+        public void PauseGame()
+        {
+            if (IsPause)
+            {
+                IsPause = false;
+                manualResetEvent.Set();
+            }
+            else
+            {
+                IsPause = true; 
+                manualResetEvent.Reset();
+            }
         }
 
         public void InvaderShipShot()

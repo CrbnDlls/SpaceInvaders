@@ -38,6 +38,8 @@ void Initialize()
     controller.OnQPress += (obj, args) => gameEngine.QuitGame();
 
     controller.OnSpacePress += (obj, args) => gameEngine.PlayerShipShot();
+
+    controller.OnPPress += (obj, args) => gameEngine.PauseGame();
 }
 
 

@@ -12,6 +12,7 @@ namespace SpaceInvaders
         public event EventHandler OnArrowRightPress;
         public event EventHandler OnSpacePress;
         public event EventHandler OnQPress;
+        public event EventHandler OnPPress;
 
         public void StartListen()
         {
@@ -39,6 +40,9 @@ namespace SpaceInvaders
                     break;
                 case ConsoleKey.Spacebar:
                     OnSpacePress?.Invoke(this, new EventArgs());
+                    break;
+                case ConsoleKey.P:
+                    OnPPress?.Invoke(this, new EventArgs());
                     break;
             }
         }
