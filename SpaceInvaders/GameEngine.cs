@@ -17,9 +17,9 @@ namespace SpaceInvaders
 
         private readonly Frame frame;
 
-        private bool IsGameOver = false;
+        private bool isGameOver = false;
 
-        private bool IsPause = false;
+        private bool isPause = false;
 
         private readonly ManualResetEvent manualResetEvent;
 
@@ -29,6 +29,14 @@ namespace SpaceInvaders
             frame = Frame.GetFrame(gameSettings);
             frameRender = new FrameRender(gameSettings);
             manualResetEvent = new ManualResetEvent(true);
+            Initialize();
+        }
+
+        public void Initialize()
+        {
+            frame.Initialize();
+            isGameOver = false;
+            isPause = false;
         }
 
         public static GameEngine GetGameEngine(GameSettings gameSettings)
@@ -71,26 +79,27 @@ namespace SpaceInvaders
 
                 missileCounter++;
 
-            } while (!IsGameOver);
+            } while (!isGameOver);
 
             frameRender.RenderGameOver();
+            
         }
 
-        public void QuitGame()
+        public void EndGame()
         {
-            IsGameOver = true;
+            isGameOver = true;
         }
 
         public void PauseGame()
         {
-            if (IsPause)
+            if (isPause)
             {
-                IsPause = false;
+                isPause = false;
                 manualResetEvent.Set();
             }
             else
             {
-                IsPause = true; 
+                isPause = true; 
                 manualResetEvent.Reset();
             }
         }
@@ -165,7 +174,7 @@ namespace SpaceInvaders
                     }
                     else if (ObjectHitByMissile(invaderMissile, frame.PlayerShip))
                     {
-                        IsGameOver = true;
+                        isGameOver = true;
                     }
                     else if (ObjectsHitByMissile(invaderMissile, frame.Earths, out int earthsIndex))
                     {
@@ -177,7 +186,7 @@ namespace SpaceInvaders
 
             if (frame.Invaders.Count == 0 || frame.Earths.Count <= gameSettings.MinimumEarth)
             {
-                IsGameOver = true;
+                isGameOver = true;
             }
         }
 
@@ -191,7 +200,7 @@ namespace SpaceInvaders
 
                 if (frame.Invaders[i].Top == frame.PlayerShip.Top)
                 {
-                    IsGameOver = true;
+                    isGameOver = true;
                     break;
                 }
             }

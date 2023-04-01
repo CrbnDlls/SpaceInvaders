@@ -9,11 +9,11 @@ namespace SpaceInvaders.Objects
 {
     internal class Frame
     {
-        private readonly List<Point> invaders;
-        private readonly List<Point> earths;
-        private readonly List<Point> playerMissiles;
-        private readonly Point playerShip;
-        private readonly List<Point> invaderMissiles;
+        private List<Point> invaders;
+        private List<Point> earths;
+        private List<Point> playerMissiles;
+        private Point playerShip;
+        private List<Point> invaderMissiles;
 
 
         private static Frame frame;
@@ -32,6 +32,11 @@ namespace SpaceInvaders.Objects
         {
             this.gameSettings = gameSettings;
 
+            Initialize();
+        }
+
+        public void Initialize()
+        {
             InvadersFactory invadersFactory = new InvadersFactory(gameSettings);
             invaders = invadersFactory.GetInvaders();
 

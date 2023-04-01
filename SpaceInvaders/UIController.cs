@@ -13,6 +13,8 @@ namespace SpaceInvaders
         public event EventHandler OnSpacePress;
         public event EventHandler OnQPress;
         public event EventHandler OnPPress;
+        public event EventHandler OnEscapePress;
+        public event EventHandler OnEnterPress;
 
         public void StartListen()
         {
@@ -30,19 +32,25 @@ namespace SpaceInvaders
             switch (key)
             {
                 case ConsoleKey.Q:
-                    OnQPress?.Invoke(this, new EventArgs());
+                    OnQPress?.Invoke(this, EventArgs.Empty);
+                    break;
+                case ConsoleKey.Escape:
+                    OnEscapePress?.Invoke(this, EventArgs.Empty);
+                    break;
+                case ConsoleKey.Enter:
+                    OnEnterPress?.Invoke(this, EventArgs.Empty);
                     break;
                 case ConsoleKey.LeftArrow:
-                    OnArrowLeftPress?.Invoke(this, new EventArgs());
+                    OnArrowLeftPress?.Invoke(this, EventArgs.Empty);
                     break;
                 case ConsoleKey.RightArrow:
-                    OnArrowRightPress?.Invoke(this, new EventArgs());
+                    OnArrowRightPress?.Invoke(this, EventArgs.Empty);
                     break;
                 case ConsoleKey.Spacebar:
-                    OnSpacePress?.Invoke(this, new EventArgs());
+                    OnSpacePress?.Invoke(this, EventArgs.Empty);
                     break;
                 case ConsoleKey.P:
-                    OnPPress?.Invoke(this, new EventArgs());
+                    OnPPress?.Invoke(this, EventArgs.Empty);
                     break;
             }
         }
