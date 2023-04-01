@@ -59,5 +59,9 @@ namespace SpaceInvaders
 
         public int InvaderShotSpeed { get; } = 3;
 
+        public int ScorePositionTop { get; } = 22;
+
+        public int ScorePositionLeft { get; } = 2;
+
     }
 }

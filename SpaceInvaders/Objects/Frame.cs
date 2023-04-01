@@ -17,7 +17,8 @@ namespace SpaceInvaders.Objects
 
 
         private static Frame frame;
-
+        public int PlayerMissileQuantity { get; private set; } = 0;
+        public int InvaderMissileQuantity { get; private set; } = 0;
         public List<Point> Invaders { get => invaders; }
         public List<Point> Earths { get => earths; }
         public List<Point> PlayerMissiles { get => playerMissiles; }
@@ -56,8 +57,26 @@ namespace SpaceInvaders.Objects
             return frame;
         }
 
-        
+        public void AddPlayerMissile()
+        {
+            MissileFactory missileFactory = new MissileFactory(gameSettings);
+            PlayerMissiles.Add(missileFactory.GetPlayerMissile(PlayerShip.Top - 1, PlayerShip.Left));
+            PlayerMissileQuantity++;
+        }
 
-        
+        public void AddInvaderMissile()
+        {
+            Random random = new Random();
+            
+            int invaderIndex = random.Next(0, frame.Invaders.Count - 1);
+            
+            Point invader = frame.Invaders[invaderIndex];
+            
+            MissileFactory missileFactory = new MissileFactory(gameSettings);
+            
+            invaderMissiles.Add(missileFactory.GetInvaderMissile(invader.Top + 1, invader.Left));
+
+            InvaderMissileQuantity++;
+        }
     }
 }

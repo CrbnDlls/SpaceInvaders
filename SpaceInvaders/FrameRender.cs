@@ -35,6 +35,28 @@ namespace SpaceInvaders
             Render();
         }
 
+        private void RenderScore(Frame frame)
+        {
+            Console.SetCursorPosition(gameSettings.ScorePositionLeft, gameSettings.ScorePositionTop);
+
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append("Invaders left: ");
+            sb.Append(AddSpaceToNumber(frame.Invaders.Count));
+            sb.Append("   ");
+            sb.Append("Earth left: ");
+            sb.Append(AddSpaceToNumber(frame.Earths.Count - gameSettings.MinimumEarth));
+            sb.Append("   ");
+            sb.Append("Missiles shot: ");
+            sb.Append(AddSpaceToNumber(frame.PlayerMissileQuantity));
+            sb.Append("   ");
+            sb.Append("Invaders shot: ");
+            sb.Append(AddSpaceToNumber(frame.InvaderMissileQuantity));
+
+            Console.WriteLine(sb.ToString());
+            Console.SetCursorPosition(0, 0);
+        }
+
         public void Render(Frame frame)
         {
             AddListToMatrix(frame.Invaders);
@@ -44,6 +66,7 @@ namespace SpaceInvaders
             AddListToMatrix(frame.InvaderMissiles);
 
             Render();
+            RenderScore(frame);
         }
 
         private void Render()
@@ -88,6 +111,23 @@ namespace SpaceInvaders
         private void AddPointToMatrix(Point point)
         {
             screenMatrix[point.Top, point.Left] = point.Symbol;
+        }
+
+        private string AddSpaceToNumber(int number)
+        {
+            string result = number.ToString();
+
+            if (result.Length == 1)
+            {
+                result = "  " + result;
+            }
+            else if (result.Length == 2)
+            {
+                result = " " + result;
+            }
+
+            return result;
+
         }
     }
 }

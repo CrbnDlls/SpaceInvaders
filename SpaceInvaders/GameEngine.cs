@@ -77,16 +77,12 @@ namespace SpaceInvaders
 
         public void InvaderShipShot()
         {
-            Random random = new Random();
-            int invaderIndex = random.Next(0, frame.Invaders.Count - 1);
-            Point invader = frame.Invaders[invaderIndex];
-
-            frame.InvaderMissiles.Add(new Missile(invader.Top + 1, invader.Left, gameSettings.InvaderMissile));
+           frame.AddInvaderMissile();
         }
 
         public void PlayerShipShot()
         {
-            frame.PlayerMissiles.Add(new Missile(frame.PlayerShip.Top - 1, frame.PlayerShip.Left, gameSettings.PlayerMissile));
+            frame.AddPlayerMissile();
             Console.Beep(1000, 200);
         }
 
